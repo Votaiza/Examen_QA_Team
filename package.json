@@ -1,0 +1,15 @@
+{
+  "name": "examen_qa_team",
+  "version": "1.0.0",
+  "description": "Examen QA",
+  "main": "index.js",
+  "scripts": {
+    "test": "newman run collections/Api.postman_collection.json -e enviroments/Prueba.postman_environment.json -r htmlextra"
+  },
+  "author": "Victor Otaiza",
+  "license": "ISC",
+  "dependencies": {
+    "newman": "^6.1.1",
+    "newman-reporter-htmlextra": "^1.23.0"
+  }
+}

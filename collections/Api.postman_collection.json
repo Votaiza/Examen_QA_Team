@@ -1,0 +1,1054 @@
+{
+	"info": {
+		"_postman_id": "171a5f50-3ed7-4e18-ada7-81c4622e5e7e",
+		"name": "Api",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "17563098"
+	},
+	"item": [
+		{
+			"name": "Users",
+			"item": [
+				{
+					"name": "GET",
+					"item": [
+						{
+							"name": "ListUsers",
+							"item": [
+								{
+									"name": "1- Enviar parametro page con valor 1",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"let reqPage = pm.collectionVariables.get(\"reqPage\")\r",
+													"\r",
+													"let {\r",
+													"    page,\r",
+													"    per_page\r",
+													"} = pm.response.json();\r",
+													"\r",
+													"let usuarios = pm.response.json().data;\r",
+													"\r",
+													"pm.test(`Validar key \"page\" de response`, function () {\r",
+													"    pm.expect(page).to.eql(reqPage);\r",
+													"});\r",
+													"\r",
+													"pm.test(`Validar cantidad de elementos key \"data\" menor igual a \"per_page\"`, function () {\r",
+													"    if (data.length > per_page){\r",
+													"        pm.expect.fail(`Error: Se esperaba que la key \"data\" devuelva hasta ${per_page} elementos`);\r",
+													"    }else{\r",
+													"        pm.response.to.be.ok\r",
+													"    }\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript"
+											}
+										},
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													"pm.collectionVariables.set(\"reqPage\", 1)"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{Reqres}}/api/users?page={{reqPage}}",
+											"host": [
+												"{{Reqres}}"
+											],
+											"path": [
+												"api",
+												"users"
+											],
+											"query": [
+												{
+													"key": "page",
+													"value": "{{reqPage}}"
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "2- Enviar en el parametro \"page\" un valor diferente a number.",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"let reqPage = pm.collectionVariables.get(\"reqPage\")\r",
+													"\r",
+													"let {\r",
+													"    page,\r",
+													"    per_page\r",
+													"} = pm.response.json();\r",
+													"\r",
+													"let usuarios = pm.response.json().data;\r",
+													"\r",
+													"pm.test(`Validar key \"page\" de response`, function () {\r",
+													"    pm.expect(page).to.eql(reqPage);\r",
+													"});\r",
+													"\r",
+													"pm.test(`Validar cantidad de elementos key \"data\" menor igual a \"per_page\"`, function () {\r",
+													"    if (data.length > per_page){\r",
+													"        pm.expect.fail(`Error: Se esperaba que la key \"data\" devuelva hasta ${per_page} elementos`);\r",
+													"    }else{\r",
+													"        pm.response.to.be.ok\r",
+													"    }\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript"
+											}
+										},
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													"pm.collectionVariables.set(\"reqPage\", \"W\")"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{Reqres}}/api/users?page={{reqPage}}",
+											"host": [
+												"{{Reqres}}"
+											],
+											"path": [
+												"api",
+												"users"
+											],
+											"query": [
+												{
+													"key": "page",
+													"value": "{{reqPage}}"
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "3- Enviar en parametro page un valor mayor al devuelto por la key \"total_pages\"",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"let reqPage = pm.collectionVariables.get(\"reqPage\")\r",
+													"\r",
+													"let {\r",
+													"    page,\r",
+													"    per_page\r",
+													"} = pm.response.json();\r",
+													"\r",
+													"let usuarios = pm.response.json().data;\r",
+													"\r",
+													"\r",
+													"pm.test(`Validar key \"data\" vacia`, function () {\r",
+													"    if (usuarios.length > 0){\r",
+													"        pm.expect.fail(`Error: Se esperaba que la key \"data\" no contenga elementos`);\r",
+													"    }else{\r",
+													"        pm.response.to.be.ok\r",
+													"    }\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript"
+											}
+										},
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													"pm.collectionVariables.set(\"reqPage\", 5)"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{Reqres}}/api/users?page={{reqPage}}",
+											"host": [
+												"{{Reqres}}"
+											],
+											"path": [
+												"api",
+												"users"
+											],
+											"query": [
+												{
+													"key": "page",
+													"value": "{{reqPage}}"
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "4- Enviar un valor negativo en parametro page",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"let reqPage = pm.collectionVariables.get(\"reqPage\")\r",
+													"\r",
+													"let {\r",
+													"    page,\r",
+													"    per_page\r",
+													"} = pm.response.json();\r",
+													"\r",
+													"let usuarios = pm.response.json().data;\r",
+													"\r",
+													"\r",
+													"pm.test(`Validar key \"page\" de response`, function () {\r",
+													"    pm.expect(page).to.eql(reqPage);\r",
+													"});\r",
+													"\r",
+													"pm.test(`Validar key \"data\" vacia`, function () {\r",
+													"    if (usuarios.length > 0){\r",
+													"        pm.expect.fail(`Error: Se esperaba que la key \"data\" no contenga elementos`);\r",
+													"    }else{\r",
+													"        pm.response.to.be.ok\r",
+													"    }\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript"
+											}
+										},
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													"pm.collectionVariables.set(\"reqPage\", -1)"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{Reqres}}/api/users?page={{reqPage}}",
+											"host": [
+												"{{Reqres}}"
+											],
+											"path": [
+												"api",
+												"users"
+											],
+											"query": [
+												{
+													"key": "page",
+													"value": "{{reqPage}}"
+												}
+											]
+										}
+									},
+									"response": []
+								}
+							],
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"type": "text/javascript",
+										"exec": [
+											""
+										]
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"type": "text/javascript",
+										"exec": [
+											"pm.test(\"Validar respuesta 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"",
+											"const schema = {",
+											"    \"type\": \"object\",",
+											"    \"properties\": {",
+											"        \"page\": {",
+											"            \"type\": \"integer\"",
+											"        },",
+											"        \"per_page\": {",
+											"            \"type\": \"integer\"",
+											"        },",
+											"        \"total\": {",
+											"            \"type\": \"integer\"",
+											"        },",
+											"        \"total_pages\": {",
+											"            \"type\": \"integer\"",
+											"        },",
+											"        \"data\": {",
+											"            \"type\": \"array\", ",
+											"        }",
+											"    },",
+											"    \"required\": [",
+											"        \"page\",",
+											"        \"per_page\",",
+											"        \"total\",",
+											"        \"total_pages\",",
+											"        \"data\",",
+											"        \"support\"",
+											"    ]",
+											"}",
+											"",
+											"pm.test(`Validar Esquema`, () => {",
+											"    pm.response.to.have.jsonSchema(schema)",
+											"})"
+										]
+									}
+								}
+							]
+						},
+						{
+							"name": "SingleUser",
+							"item": [
+								{
+									"name": "Validar Afiliado id 2",
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													"let idUsuario = 2\r",
+													"\r",
+													"pm.sendRequest(`${pm.environment.get(\"Reqres\")}/api/users?page=1`, function (err, response) {\r",
+													"    try{\r",
+													"\r",
+													"        let usuarios =  response.json().data\r",
+													"        let usuarioBuscado = usuarios.find( usuario => usuario.id === idUsuario )\r",
+													"        pm.collectionVariables.set(\"usuarioBuscado\", usuarioBuscado)\r",
+													"         \r",
+													"    }catch{\r",
+													"        console.log(err)\r",
+													"    }\r",
+													"})\r",
+													"\r",
+													"\r",
+													"pm.collectionVariables.set(\"idUsuario\", idUsuario)"
+												],
+												"type": "text/javascript"
+											}
+										},
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"let usuarioBuscado = pm.collectionVariables.get(\"usuarioBuscado\")\r",
+													"\r",
+													"let {\r",
+													"    id,\r",
+													"    email,\r",
+													"    first_name,\r",
+													"    last_name,\r",
+													"    avatar\r",
+													"} = pm.response.json().data;\r",
+													"\r",
+													"pm.test(\"Validar key email\", function () {\r",
+													"    pm.expect(email).to.eql(usuarioBuscado.email);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Validar key first_name\", function () {\r",
+													"    pm.expect(first_name).to.eql(usuarioBuscado.first_name);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Validar key last_name\", function () {\r",
+													"    pm.expect(last_name).to.eql(usuarioBuscado.last_name);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Validar key avatar\", function () {\r",
+													"    pm.expect(avatar).to.eql(usuarioBuscado.avatar);\r",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{Reqres}}/api/users/2",
+											"host": [
+												"{{Reqres}}"
+											],
+											"path": [
+												"api",
+												"users",
+												"2"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "POST",
+					"item": [
+						{
+							"name": "Create User",
+							"item": [
+								{
+									"name": "Crear Usuario",
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"name\": \"usuarioPrueba\",\r\n    \"job\": \"leader\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{Reqres}}/api/users",
+											"host": [
+												"{{Reqres}}"
+											],
+											"path": [
+												"api",
+												"users"
+											]
+										}
+									},
+									"response": []
+								}
+							],
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"type": "text/javascript",
+										"exec": [
+											""
+										]
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"type": "text/javascript",
+										"exec": [
+											"let schema = {",
+											"  \"type\": \"object\",",
+											"  \"properties\": {",
+											"    \"name\": {",
+											"      \"type\": \"string\"",
+											"    },",
+											"    \"job\": {",
+											"      \"type\": \"string\"",
+											"    },",
+											"    \"id\": {",
+											"      \"type\": \"string\"",
+											"    },",
+											"    \"createdAt\": {",
+											"      \"type\": \"string\"",
+											"    }",
+											"  },",
+											"  \"required\": [",
+											"    \"name\",",
+											"    \"job\",",
+											"    \"id\",",
+											"    \"createdAt\"",
+											"  ]",
+											"}",
+											"",
+											"pm.test(`Validar Esquema`, () => {",
+											"    pm.response.to.have.jsonSchema(schema)",
+											"})",
+											"",
+											"pm.test(\"Validar estado 201\", function () {",
+											"    pm.response.to.have.status(201);",
+											"});",
+											"",
+											""
+										]
+									}
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "PUT",
+					"item": [
+						{
+							"name": "UPDATE",
+							"item": [
+								{
+									"name": "Actualizar Usuario",
+									"request": {
+										"method": "PUT",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"name\": \"morpheus\",\r\n    \"job\": \"zion resident\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{Reqres}}/api/users/2",
+											"host": [
+												"{{Reqres}}"
+											],
+											"path": [
+												"api",
+												"users",
+												"2"
+											]
+										}
+									},
+									"response": []
+								}
+							],
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"type": "text/javascript",
+										"exec": [
+											""
+										]
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"type": "text/javascript",
+										"exec": [
+											"let schema = {",
+											"  \"type\": \"object\",",
+											"  \"properties\": {",
+											"    \"name\": {",
+											"      \"type\": \"string\"",
+											"    },",
+											"    \"job\": {",
+											"      \"type\": \"string\"",
+											"    },",
+											"    \"updatedAt\": {",
+											"      \"type\": \"string\"",
+											"    }",
+											"  },",
+											"  \"required\": [",
+											"    \"name\",",
+											"    \"job\",",
+											"    \"updatedAt\"",
+											"  ]",
+											"}",
+											"",
+											"pm.test(`Validar Esquema`, () => {",
+											"    pm.response.to.have.jsonSchema(schema)",
+											"})",
+											"",
+											"pm.test(\"Validar estado 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											""
+										]
+									}
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "PATCH",
+					"item": [
+						{
+							"name": "UPDATE",
+							"item": [
+								{
+									"name": "Actualizar Usuario",
+									"request": {
+										"method": "PATCH",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"name\": \"morpheus\",\r\n    \"job\": \"zion resident\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{Reqres}}/api/users/2",
+											"host": [
+												"{{Reqres}}"
+											],
+											"path": [
+												"api",
+												"users",
+												"2"
+											]
+										}
+									},
+									"response": []
+								}
+							],
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"type": "text/javascript",
+										"exec": [
+											""
+										]
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"type": "text/javascript",
+										"exec": [
+											"let schema = {",
+											"  \"type\": \"object\",",
+											"  \"properties\": {",
+											"    \"name\": {",
+											"      \"type\": \"string\"",
+											"    },",
+											"    \"job\": {",
+											"      \"type\": \"string\"",
+											"    },",
+											"    \"updatedAt\": {",
+											"      \"type\": \"string\"",
+											"    }",
+											"  },",
+											"  \"required\": [",
+											"    \"name\",",
+											"    \"job\",",
+											"    \"updatedAt\"",
+											"  ]",
+											"}",
+											"",
+											"pm.test(`Validar Esquema`, () => {",
+											"    pm.response.to.have.jsonSchema(schema)",
+											"})",
+											"",
+											"pm.test(\"Validar estado 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											""
+										]
+									}
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "DELETE",
+					"item": [
+						{
+							"name": "Delete User",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Validar estado 204\", function () {\r",
+											"    pm.response.to.have.status(204);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{Reqres}}/api/users/2",
+									"host": [
+										"{{Reqres}}"
+									],
+									"path": [
+										"api",
+										"users",
+										"2"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Unknown",
+			"item": [
+				{
+					"name": "GET",
+					"item": [
+						{
+							"name": "Listar Recursos",
+							"item": [
+								{
+									"name": "Listar Recursos",
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{Reqres}}/api/unknown",
+											"host": [
+												"{{Reqres}}"
+											],
+											"path": [
+												"api",
+												"unknown"
+											]
+										}
+									},
+									"response": []
+								}
+							],
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"type": "text/javascript",
+										"exec": [
+											""
+										]
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"type": "text/javascript",
+										"exec": [
+											"let schema = {",
+											"  \"type\": \"object\",",
+											"  \"properties\": {",
+											"    \"page\": {",
+											"      \"type\": \"integer\"",
+											"    },",
+											"    \"per_page\": {",
+											"      \"type\": \"integer\"",
+											"    },",
+											"    \"total\": {",
+											"      \"type\": \"integer\"",
+											"    },",
+											"    \"total_pages\": {",
+											"      \"type\": \"integer\"",
+											"    },",
+											"    \"data\": {",
+											"      \"type\": \"array\",",
+											"    },",
+											"    \"support\": {",
+											"      \"type\": \"object\",",
+											"      \"properties\": {",
+											"        \"url\": {",
+											"          \"type\": \"string\"",
+											"        },",
+											"        \"text\": {",
+											"          \"type\": \"string\"",
+											"        }",
+											"      },",
+											"      \"required\": [",
+											"        \"url\",",
+											"        \"text\"",
+											"      ]",
+											"    }",
+											"  },",
+											"  \"required\": [",
+											"    \"page\",",
+											"    \"per_page\",",
+											"    \"total\",",
+											"    \"total_pages\",",
+											"    \"data\",",
+											"    \"support\"",
+											"  ]",
+											"}",
+											"",
+											"pm.test(`Validar Esquema`, () => {",
+											"    pm.response.to.have.jsonSchema(schema)",
+											"})",
+											""
+										]
+									}
+								}
+							]
+						}
+					],
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"Validar estado 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								]
+							}
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Register",
+			"item": [
+				{
+					"name": "POST",
+					"item": [
+						{
+							"name": "Usuario Registrado",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Validar estado 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"email\": \"eve.holt@reqres.in\",\r\n    \"password\": \"pistol\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{Reqres}}/api/register",
+									"host": [
+										"{{Reqres}}"
+									],
+									"path": [
+										"api",
+										"register"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Validacion contraseña",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Validar estado 400\", function () {\r",
+											"    pm.response.to.have.status(400);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"email\": \"sydney@fife\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{Reqres}}/api/register",
+									"host": [
+										"{{Reqres}}"
+									],
+									"path": [
+										"api",
+										"register"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Login",
+			"item": [
+				{
+					"name": "POST",
+					"item": [
+						{
+							"name": "Usuario autenticado",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Validar estado 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"email\": \"eve.holt@reqres.in\",\r\n    \"password\": \"cityslicka\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{Reqres}}/api/login",
+									"host": [
+										"{{Reqres}}"
+									],
+									"path": [
+										"api",
+										"login"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Usuario no autenticado",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Validar estado 400\", function () {\r",
+											"    pm.response.to.have.status(400);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"email\": \"peter@klaven\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{Reqres}}/api/login",
+									"host": [
+										"{{Reqres}}"
+									],
+									"path": [
+										"api",
+										"login"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					"pm.test(\"Validar respuesta menor a 500ms\", function () {",
+					"    pm.expect(pm.response.responseTime).to.be.below(500);",
+					"});"
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "reqPage",
+			"value": ""
+		},
+		{
+			"key": "idUsuario",
+			"value": ""
+		},
+		{
+			"key": "usuarioBuscado",
+			"value": ""
+		}
+	]
+}
