@@ -19,7 +19,7 @@ jobs:
         run: npm install
 
       - name: Ejecucion de Tests
-        run: npm run test
+        run: newman run collections/Api.postman_collection.json -e enviroments/Prueba.postman_environment.json -r htmlextra
 
       - name: Enviar email
         uses: dawidd6/action-send-mail@v3
