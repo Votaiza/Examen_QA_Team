@@ -1,0 +1,33 @@
+name: Github Actions Prueba
+on:
+  schedule:
+    - cron: '0 0 * * *'
+
+jobs:
+  build:
+    runs-on: ubuntu-lastest
+
+    steps:
+      - uses: actions/checkout@v4.1.2
+    
+      - name: Setup Node
+        uses: actions/setup-node@v4.0.2
+
+      - name: Install Dependencies
+        run: npm install
+
+      - name: Ejecucion de Tests
+        run: npm run test
+
+      - name: Enviar email
+        uses: dawidd6/action-send-mail@v3
+        with:
+          server_address: smtp.gmail.com
+          server_port: 587
+          username: ${{ secrets.EMAIL_USERNAME }}
+          password: ${{ secrets.EMAIL_PASSWORD }}
+          subject: 'Notification from GitHub Actions'
+          to: 'victorotaiza2011@gmail.com'
+          body: 'Resultados de los test'
+          attachments: ./newman/*.html
+            
