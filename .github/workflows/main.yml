@@ -10,7 +10,8 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v4.1.2
+      - name: Checkout codigo
+        uses: actions/checkout@v4.1.2
     
       - name: Setup Node
         uses: actions/setup-node@v4.0.2
@@ -18,8 +19,12 @@ jobs:
       - name: Install Dependencies
         run: npm install
 
+      - name: Instalar Allure Report
+        run: npm install --save-dev allure-commandline
+
       - name: Ejecucion de Tests
-        run: newman run collections/Api.postman_collection.json -e enviroments/Prueba.postman_environment.json -r htmlextra
+        run: newman run collections/Api.postman_collection.json -e enviroments/Prueba.postman_environment.json -r json --reporter-json-export newman-report.json
+          allure generate newman-report.json --clean -o allure-report
 
       - name: Enviar email
         uses: dawidd6/action-send-mail@v3
@@ -31,5 +36,5 @@ jobs:
           subject: 'Notification from GitHub Actions'
           to: 'victorotaiza2011@gmail.com'
           body: 'Resultados de los test'
-          attachments: ./newman/*.html
+          attachments: allure-report
             
