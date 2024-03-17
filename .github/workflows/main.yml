@@ -20,7 +20,7 @@ jobs:
         run: npm install -g newman
 
       - name: Ejecucion de Tests
-        run: newman run collections/Api.postman_collection.json -e enviroments/Prueba.postman_environment.json -r json --reporter-json-export newman-report.json
+        run: newman run collections/Api.postman_collection.json -e enviroments/Prueba.postman_environment.json -r json --reporters cli,allure --reporter-allure-export output/allure-results
 
       - name: Generate Allure Report
         run: allure generate allure-results
