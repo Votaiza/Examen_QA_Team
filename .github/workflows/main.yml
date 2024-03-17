@@ -23,7 +23,7 @@ jobs:
         run: npm install -g newman-reporter-htmlextra
 
       - name: Ejecucion de Tests
-        run: newman run collections/Api.postman_collection.json -e enviroments/Prueba.postman_environment.json -r htmlextra --reporter-htmlextra-export ./results/report.html
+        run: newman run collections/Api.postman_collection.json -e enviroments/Prueba.postman_environment.json --insecure -r htmlextra --reporter-htmlextra-export ./results/report.html
           
       - name: Enviar email
         uses: dawidd6/action-send-mail@v3
