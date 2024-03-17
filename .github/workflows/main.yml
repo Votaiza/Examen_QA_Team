@@ -16,6 +16,11 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@v4.0.2
 
+      - name: Setup JDK
+        uses: actions/setup-java@v4.2.1
+        with:
+          java-version: '8'
+
       - name: Install Newman
         run: npm install -g newman
 
