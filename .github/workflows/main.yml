@@ -21,7 +21,8 @@ jobs:
 
       - name: Ejecucion de Tests
         run: newman run collections/Api.postman_collection.json -e enviroments/Prueba.postman_environment.json -r json --reporter-json-export newman-report.json
-          allure generate --output allure-report --format json allure-results
+          allure generate allure-results
+          
       - name: Enviar email
         uses: dawidd6/action-send-mail@v3
         with:
